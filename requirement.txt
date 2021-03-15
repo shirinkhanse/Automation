@@ -1,0 +1,5 @@
+pandas
+urllib3
+requests
+urllib.parse.urlparse
+urllib.parse.unquote
