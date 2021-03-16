@@ -23,7 +23,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 OUTFILE = '/tmp/output/acl_log.csv'
 OUTPUTFILE = '/tmp/output/acllog_pagination.csv'
 DEVICEID = '4.4.4.4'
-ACL_URL = 'https://{{ipaddress}}:{{port}}/dataservice/statistics/flowlog?query=%7B%22query%22%3A%' \
+ACL_URL = 'https://{ipaddress}:{port}/dataservice/statistics/flowlog?query=%7B%22query%22%3A%' \
           '7B%22condition%22%3A%22AND%22%2C%22rules%22%3A%5B%7B%22value%22%3A%5B%2224%22%5D%2C%' \
           '22field%22%3A%22entry_time%22%2C%22type%22%3A%22date%22%2C%22operator%22%3A%22' \
           'last_n_hours%22%7D%5D%7D%7D'
@@ -63,7 +63,7 @@ class rest_api_lib:
     def get_request(self, mount_query):
         """GET request flow log - ACL Log"""
         #dictionary to string conversion
-        url = "https://%s:8443/dataservice/statistics/flowlog?query=%s" % (self.vmanage_ip, json.dumps(mount_query))
+        url = "https://%s:{port}/dataservice/statistics/flowlog?query=%s" % (self.vmanage_ip, json.dumps(mount_query))
         response = self.session[self.vmanage_ip].get(url, verify=False)
         byte_content = response.content
         data = str(byte_content, 'utf-8')
@@ -74,7 +74,7 @@ class rest_api_lib:
     def get_bfd_summary_request(self, deviceId):
         """GET request bfd summary"""
         query_param = 'deviceId'
-        url = "https://%s:8443/dataservice/device/bfd/summary?%s=%s" % (self.vmanage_ip, query_param, deviceId)
+        url = "https://%s:{port}/dataservice/device/bfd/summary?%s=%s" % (self.vmanage_ip, query_param, deviceId)
         response = self.session[self.vmanage_ip].get(url, verify=False)
         byte_content = response.content
         data = str(byte_content, 'utf-8')
@@ -84,7 +84,7 @@ class rest_api_lib:
     def get_bfd_sessions_request(self, deviceId):
         """GET request bfd session"""
         query_param = 'deviceId'
-        url = "https://%s:8443/dataservice/device/bfd/sessions?%s=%s&&&" % (self.vmanage_ip, query_param, deviceId)
+        url = "https://%s:{port}/dataservice/device/bfd/sessions?%s=%s&&&" % (self.vmanage_ip, query_param, deviceId)
         response = self.session[self.vmanage_ip].get(url, verify=False)
         byte_content = response.content
         data = str(byte_content, 'utf-8')
@@ -95,7 +95,7 @@ class rest_api_lib:
     def get_req_acllog(self, mount_query):
         """GET request flow log - ACL Log"""
         #dictionary to string
-        url = "https://%s:{{port}}/dataservice/statistics/flowlog?query=%s" % (self.vmanage_ip, json.dumps(mount_query))
+        url = "https://%s:{port}/dataservice/statistics/flowlog?query=%s" % (self.vmanage_ip, json.dumps(mount_query))
         response_page = self.session[self.vmanage_ip].get(url, verify=False)
         byte_content = response_page.content
         data = str(byte_content, 'utf-8')
