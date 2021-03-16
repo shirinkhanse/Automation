@@ -33,6 +33,7 @@ class rest_api_lib:
     def __init__(self, vmanage_ip, username, password):
         self.vmanage_ip = vmanage_ip
         self.session = {}
+        self.port = 8443
         self.login(self.vmanage_ip, username, password)
 
     def login(self, vmanage_ip, username, password):
@@ -120,7 +121,7 @@ def main(args):
     #query = {"query": {"condition": "AND", "rules": [{"value": ["24"], "field": "entry_time", "type": "date", "operator": "last_n_hours"}]}}
     #pprint(query)
 
-    query = url_parse_query(ACL_URL)
+    query = url_parse_query(ACL_URL.format(vmanage_ip, obj.port))
     print('query:', query)
     response = obj.get_request(query)
     print("response:", response)
